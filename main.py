@@ -35,7 +35,7 @@ def main():
         # -----------------------------------------------------------
         begin_drawing()
 
-        clear_background(RAYWHITE)
+        clear_background(Color(85, 170, 0, 255))
 
         begin_mode2d(camera)
 
@@ -52,7 +52,7 @@ def main():
     # ---------------------------------------------------------------
 
 # Class for a track on the grid
-class track(){
+class track():
     def __init__(self, type, has_switch, direction, has_light, tile = 0):
         # Types are:
         #   Long Curve (Top and Bottom)
@@ -71,10 +71,9 @@ class track(){
 
         # What tile on the map the track is on
         self.tile = tile
-}
 
 # Class for a Train
-class train(){
+class train():
     def __init__(self, color, direction, tile = 0, components = None, speed = 0):
         # What color the train is
         self.color = color
@@ -82,10 +81,10 @@ class train(){
         # What tile the train is currently on
         self.tile = tile
 
-        # What cars are attached to the train
+        # What cars are attached to the train (should be a list or None)
         self.components = components
 
-        # How far along the train is along the current track
+        # How far along the train is along the current track (0% is start, 100% is end)
         self.progress = 0.0
 
         # What direaction the train is facing (0 or 1)
@@ -93,10 +92,9 @@ class train(){
 
         # How fast the train is moving
         self.speed = speed
-}
 
 # Class for any obsticals on the map
-class obstical(){
+class obstical():
     def __init__(self, type, color = None):
 
         # What kind of obstical this obstical is
@@ -104,7 +102,6 @@ class obstical(){
 
         # Whar color is the obstical (None for trees)
         self.color = color
-}
 
 
 if __name__ == '__main__':
