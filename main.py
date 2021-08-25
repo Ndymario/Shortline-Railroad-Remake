@@ -6,6 +6,7 @@ def main():
 
     # Initialization
     # ---------------------------------------------------------------
+    # Raylib stuff
     screen_width = 800
     screen_height = 450
 
@@ -21,6 +22,31 @@ def main():
     camera.zoom = 1.0
 
     set_target_fps(60)
+
+    # Game counters & Flags:
+
+    # Debug mode: Enable dev tools/cheats (maybe give this as a reward for beating year 2000?)
+    debug = False
+
+    # What year the player is at
+    current_year = 1800
+
+    # Cash is internally counted as 1's, but displayed as 1000's
+    # Defaults to 100
+    current_cash = 100
+
+    # How many trains the player has successfully gotten to a station
+    trains_stationed = 0
+
+    # What "level" the player is on
+    # Defaults to 15
+    level = 15
+
+    # List of entrances open to the player
+    # Will be filled with a dictionary of entrances, the key being color and content being the state of the entrance
+    entrances = []
+
+
     # ---------------------------------------------------------------
 
     # Main game loop
@@ -74,12 +100,15 @@ class track():
 
 # Class for a Train
 class train():
-    def __init__(self, color, direction, tile = 0, components = None, speed = 0):
+    def __init__(self, color, direction, type, tile = 0, components = None, speed = 0):
         # What color the train is
         self.color = color
 
         # What tile the train is currently on
         self.tile = tile
+
+        # What kind of train is this train
+        self.type = type
 
         # What cars are attached to the train (should be a list or None)
         self.components = components
@@ -90,7 +119,7 @@ class train():
         # What direaction the train is facing (0 or 1)
         self.direction = direction
 
-        # How fast the train is moving
+        # How fast the train is moving (negative speed makes a train go backwards)
         self.speed = speed
 
 # Class for any obsticals on the map
