@@ -54,6 +54,35 @@ def main():
     # Will be filled with a dictionary of entrances, the key being color and content being the state of the entrance
     entrances = []
 
+    # List of the game tiles
+    t1 = Tile(1)
+    t2 = Tile(2)
+    t3 = Tile(3)
+    t4 = Tile(4)
+    t5 = Tile(5)
+    t6 = Tile(6)
+    t7 = Tile(7)
+    t8 = Tile(8)
+    t9 = Tile(9)
+    t10 = Tile(10)
+    t11 = Tile(11)
+    t12 = Tile(12)
+    t13 = Tile(13)
+    t14 = Tile(14)
+    t15 = Tile(15)
+    t16 = Tile(16)
+    t17 = Tile(17)
+    t18 = Tile(18)
+    t19 = Tile(19)
+    t20 = Tile(20)
+    t21 = Tile(21)
+    t22 = Tile(22)
+    t23 = Tile(23)
+    t24 = Tile(24)
+    t25 = Tile(25)
+
+    tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17,\
+    t18, t19, t20, t21, t22, t23, t24, t25]
 
     # ---------------------------------------------------------------
 
@@ -74,7 +103,7 @@ def main():
         begin_mode2d(camera)
 
         end_mode2d()
-        
+
         draw_rectangle(0, 0, 1024, 79, BLUE) # Menu
         draw_rectangle(0, 560-25, 1024, 25, LIGHTGRAY) # Status
 
@@ -87,29 +116,27 @@ def main():
     # ---------------------------------------------------------------
 
 # Class for a track on the grid
-class track():
-    def __init__(self, type, has_switch, direction, has_light, tile = 0):
-        # Types are:
-        #   Long Curve (Top and Bottom)
-        #   Sharp Curve (Left and Right)
-        #   Straightaway (Facing 45* or -45*)
+class Tile():
+    def __init__(self, id, type = 0b00000000):
+        # Tile ID
+        self.id = id
+
+        # Track type data is an 8-bit value
+        #   0000 0000 = Nothing
+        #   0000 0001 = Obstical
+        #   1000 0001 = Track Sloped Downwards
+        #   1000 0010 = Track Curved Downwards
+        #   1000 0100 = Track Curved to the Left
+        #   1000 1000 = Track Sloped Upwards
+        #   1001 0000 = Track Curved Upwards
+        #   1010 0000 = Track Curved to the Right
+        # Combine these values to get a combination of tracks
         self.type = type
 
-        # A track has a switch if it has a "branching" path. Triple Switches are not allowed!
-        self.has_switch = has_switch
-
-        # A flag to set if the current track has a stop light
-        self.has_light = has_light
-
-        # Direction on the track (either 0 or 1)
-        self.direction = direction
-
-        # What tile on the map the track is on
-        self.tile = tile
-
 # Class for a Train
-class train():
+class Train():
     def __init__(self, color, direction, type, tile = 0, components = None, speed = 0):
+
         # What color the train is
         self.color = color
 
@@ -130,16 +157,6 @@ class train():
 
         # How fast the train is moving (negative speed makes a train go backwards)
         self.speed = speed
-
-# Class for any obsticals on the map
-class obstical():
-    def __init__(self, type, color = None):
-
-        # What kind of obstical this obstical is
-        self.type = type
-
-        # Whar color is the obstical (None for trees)
-        self.color = color
 
 
 if __name__ == '__main__':
