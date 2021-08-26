@@ -1,4 +1,12 @@
+import os
+import platform
 
+print(platform.system())
+if platform.system() == "Linux":
+    if platform.architecture()[0] == "64bit":
+        os.environ["RAYLIB_BIN_PATH"] = "Deps/Linux64"
+    elif platform.architecture()[0] == "32bit":
+        os.environ["RAYLIB_BIN_PATH"] = "Deps/Linux32"
 
 from raylibpy import *
 
@@ -7,8 +15,8 @@ def main():
     # Initialization
     # ---------------------------------------------------------------
     # Raylib stuff
-    screen_width = 800
-    screen_height = 450
+    screen_width = 1024 #512 256 128 64
+    screen_height = 560 #280 140 70 35
 
     init_window(screen_width, screen_height, "Shortline Railroad - Remastered")
 
@@ -66,8 +74,9 @@ def main():
         begin_mode2d(camera)
 
         end_mode2d()
-
-        draw_text("SCREEN AREA", 640, 10, 20, RED)
+        
+        draw_rectangle(0, 0, 1024, 79, BLUE) # Menu
+        draw_rectangle(0, 560-25, 1024, 25, LIGHTGRAY) # Status
 
         end_drawing()
         # -----------------------------------------------------------
