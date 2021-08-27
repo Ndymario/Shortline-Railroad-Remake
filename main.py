@@ -30,9 +30,9 @@ def main():
     camera.zoom = 1.0
 
     set_target_fps(60)
-
+    # ---------------------------------------------------------------
     # Game counters & Flags:
-
+    # ---------------------------------------------------------------
     # Debug mode: Enable dev tools/cheats (maybe give this as a reward for beating year 2000?)
     debug = False
 
@@ -54,7 +54,7 @@ def main():
     # Will be filled with a dictionary of entrances, the key being color and content being the state of the entrance
     entrances = []
 
-    # List of the game tiles
+    # List of the game tiles, it's ok to generate a static number of these as there should never be more than 25
     t1 = Tile(1)
     t2 = Tile(2)
     t3 = Tile(3)
@@ -83,9 +83,7 @@ def main():
 
     tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17,\
     t18, t19, t20, t21, t22, t23, t24, t25]
-
     # ---------------------------------------------------------------
-
     # Main game loop
     while not window_should_close():
 
@@ -132,6 +130,22 @@ class Tile():
         #   1010 0000 = Track Curved to the Right
         # Combine these values to get a combination of tracks
         self.type = type
+
+        # List of hazards this tile's track has
+        self.hazards = []
+
+    # Function that handles the spawning of hazards on the track
+    def hazard_controller(self, hazard_progress, id):
+        # Hazard Progress determines where on the track a hazard is located (same as a train)
+        # Should be a float for a percentage
+        hazard_progress = hazard_progress
+
+        # Create a dictionary to make each hazard unique
+        hazard = {id: hazard_progress}
+
+        # Append the hazard to the list of hazards
+        self.hazards.append(hazard)
+        return
 
 # Class for a Train
 class Train():
