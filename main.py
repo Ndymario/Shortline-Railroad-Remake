@@ -89,7 +89,7 @@ def main():
 
         # Update
         # -----------------------------------------------------------
-
+        mouse_pos = get_mouse_position()
         # -----------------------------------------------------------
 
         # Draw
@@ -104,6 +104,8 @@ def main():
 
         draw_rectangle(0, 0, 1024, 79, BLUE) # Menu
         draw_rectangle(0, 560-25, 1024, 25, LIGHTGRAY) # Status
+
+        draw_circle(mouse_pos.x, mouse_pos.y, 20, LIGHTGRAY)
 
         end_drawing()
         # -----------------------------------------------------------
