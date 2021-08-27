@@ -55,42 +55,37 @@ def main():
     # Will be filled with a dictionary of entrances, the key being color and content being the state of the entrance
     entrances = []
 
+    # Grid information
+    column = [170, 340, 500, 670, 830]
+    row = [100, 140, 180, 220, 260, 300, 340, 380, 420, 460]
     # List of the game tiles, it's ok to generate a static number of these as there should never be more than 25
-    t1 = Tile(1, Vector2(170, 140))
-    t2 = Tile(2)
-    t3 = Tile(3)
-    t4 = Tile(4)
-    t5 = Tile(5)
-    t6 = Tile(6)
-    t7 = Tile(7)
-    t8 = Tile(8)
-    t9 = Tile(9)
-    t10 = Tile(10)
-    t11 = Tile(11)
-    t12 = Tile(12)
-    t13 = Tile(13)
-    t14 = Tile(14)
-    t15 = Tile(15)
-    t16 = Tile(16)
-    t17 = Tile(17)
-    t18 = Tile(18)
-    t19 = Tile(19)
-    t20 = Tile(20)
-    t21 = Tile(21)
-    t22 = Tile(22)
-    t23 = Tile(23)
-    t24 = Tile(24)
-    t25 = Tile(25)
+    t1 = Tile(1, Vector2(column[1], row[0]))
+    t2 = Tile(2, Vector2(column[3], row[0]))
+    t3 = Tile(3, Vector2(column[0], row[1]))
+    t4 = Tile(4, Vector2(column[2], row[1]))
+    t5 = Tile(5, Vector2(column[4], row[1]))
+    t6 = Tile(6, Vector2(column[1], row[2]))
+    t7 = Tile(7, Vector2(column[3], row[2]))
+    t8 = Tile(8, Vector2(column[0], row[3]))
+    t9 = Tile(9, Vector2(column[2], row[3]))
+    t10 = Tile(10, Vector2(column[4], row[3]))
+    t11 = Tile(11, Vector2(column[1], row[4]))
+    t12 = Tile(12, Vector2(column[3], row[4]))
+    t13 = Tile(13, Vector2(column[0], row[5]))
+    t14 = Tile(14, Vector2(column[2], row[5]))
+    t15 = Tile(15, Vector2(column[4], row[5]))
+    t16 = Tile(16, Vector2(column[1], row[6]))
+    t17 = Tile(17, Vector2(column[3], row[6]))
+    t18 = Tile(18, Vector2(column[0], row[7]))
+    t19 = Tile(19, Vector2(column[2], row[7]))
+    t20 = Tile(20, Vector2(column[4], row[7]))
+    t21 = Tile(21, Vector2(column[1], row[8]))
+    t22 = Tile(22, Vector2(column[3], row[8]))
+    t23 = Tile(23, Vector2(column[0], row[9]))
+    t24 = Tile(24, Vector2(column[2], row[9]))
+    t25 = Tile(25, Vector2(column[4], row[9]))
 
     tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25]
-
-    grid = load_image("/Users/ndymario/temp_grid.png")
-
-    #new_grid = image_resize(grid, 1024, 79)
-
-    texture = load_texture_from_image(grid)
-
-    unload_image(grid)
 
     # ---------------------------------------------------------------
     # Main game loop
@@ -114,9 +109,9 @@ def main():
         draw_rectangle(0, 0, 1024, 79, BLUE) # Menu
         draw_rectangle(0, 560-25, 1024, 25, LIGHTGRAY) # Status
 
-        draw_texture(texture, 63, 100, WHITE)
-
-        t1.draw()
+        # Interactable Tiles
+        for tile in tiles:
+            tile.draw()
 
         if(is_mouse_button_pressed(MOUSE_LEFT_BUTTON)):
             print("X: {0}\nY: {1}".format(mouse_pos.x, mouse_pos.y)) # Mouse POS
