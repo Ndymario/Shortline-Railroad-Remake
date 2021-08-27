@@ -113,8 +113,8 @@ def main():
         for tile in tiles:
             tile.draw()
 
-        if(is_mouse_button_pressed(MOUSE_LEFT_BUTTON)):
-            print("X: {0}\nY: {1}".format(mouse_pos.x, mouse_pos.y)) # Mouse POS
+            if((is_mouse_button_pressed(MOUSE_LEFT_BUTTON)) and (tile.colission_check(mouse_pos))):
+                print("Collision with Tile ID: {0}".format(tile.id))
 
         end_drawing()
         # -----------------------------------------------------------
@@ -138,11 +138,6 @@ class Tile():
 
         # Function that creates the Vectors
         self.tile_vector_generator(location)
-
-        print(self.v1)
-        print(self.v2)
-        print(self.v3)
-        print(self.v4)
 
         # Track type data is an 8-bit value
         #   0000 0000 = Nothing
@@ -172,38 +167,49 @@ class Tile():
         self.hazards.append(hazard)
         return
 
+    #Function that generates the points for the Tile's Triangles
     def tile_vector_generator(self, location):
         # Use v1 as the reference point and generate the other vectors based on that
         tile_v1 = copy.deepcopy(location)
-        print(tile_v1)
 
         tile_v2 = copy.deepcopy(location)
         tile_v2.x -= 105
         tile_v2.y += 30
-        print(tile_v2)
 
         tile_v3 = copy.deepcopy(location)
         tile_v3.x += 115
         tile_v3.y += 30
-        print(tile_v3)
 
         tile_v4 = copy.deepcopy(location)
         tile_v4.y += 55
-        print(tile_v4)
 
         self.v1 = tile_v1
         self.v2 = tile_v2
         self.v3 = tile_v3
         self.v4 = tile_v4
 
+    # Function to draw the Tiles to the screen
     def draw(self, color = BLACK):
-        #print("Hello")
-        #print(self.v1)
-        #print(self.v2)
-        #print(self.v3)
-        #print(self.v4)
         draw_triangle(self.v1, self.v2, self.v3, color)
         draw_triangle(self.v2, self.v4, self.v3, color)
+
+    # Function that checks to see if the mouse is currently touching the Tile
+    def colission_check(self, mouse_pos):
+        y_col = False
+        x_col = False
+        # First, see if the mouse is in the Tile's y-range
+        if((self.v1.y <= mouse_pos.y) and (self.v4.y >= mouse_pos.y)):
+            y_col = True
+
+        # Next, check the x-range
+        if((self.v2.x <= mouse_pos.x) and (self.v3.x >= mouse_pos.x)):
+            x_col = True
+
+        # Lastly, return True if both contitions are met
+        if(x_col and y_col):
+            return True
+        else:
+            return False
 
 # Class for a Train
 class Train():
