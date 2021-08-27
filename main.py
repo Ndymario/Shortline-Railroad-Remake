@@ -1,5 +1,6 @@
 import os
 import platform
+import copy
 
 print(platform.system())
 if platform.system() == "Linux":
@@ -56,10 +57,32 @@ def main():
 
     # List of the game tiles, it's ok to generate a static number of these as there should never be more than 25
     t1 = Tile(1, Vector2(170, 140))
+    t2 = Tile(2)
+    t3 = Tile(3)
+    t4 = Tile(4)
+    t5 = Tile(5)
+    t6 = Tile(6)
+    t7 = Tile(7)
+    t8 = Tile(8)
+    t9 = Tile(9)
+    t10 = Tile(10)
+    t11 = Tile(11)
+    t12 = Tile(12)
+    t13 = Tile(13)
+    t14 = Tile(14)
+    t15 = Tile(15)
+    t16 = Tile(16)
+    t17 = Tile(17)
+    t18 = Tile(18)
+    t19 = Tile(19)
+    t20 = Tile(20)
+    t21 = Tile(21)
+    t22 = Tile(22)
+    t23 = Tile(23)
+    t24 = Tile(24)
+    t25 = Tile(25)
 
-
-    #tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17,\
-    #t18, t19, t20, t21, t22, t23, t24, t25]
+    tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25]
 
     grid = load_image("/Users/ndymario/temp_grid.png")
 
@@ -91,7 +114,7 @@ def main():
         draw_rectangle(0, 0, 1024, 79, BLUE) # Menu
         draw_rectangle(0, 560-25, 1024, 25, LIGHTGRAY) # Status
 
-        #draw_texture(texture, 63, 100, WHITE)
+        draw_texture(texture, 63, 100, WHITE)
 
         t1.draw()
 
@@ -155,28 +178,28 @@ class Tile():
         return
 
     def tile_vector_generator(self, location):
-            # Use v1 as the reference point and generate the other vectors based on that
-            tile_v1 = location
-            print(tile_v1)
+        # Use v1 as the reference point and generate the other vectors based on that
+        tile_v1 = copy.deepcopy(location)
+        print(tile_v1)
 
-            tile_v2 = location
-            tile_v2.x -= 105
-            tile_v2.y += 30
-            print(tile_v2)
+        tile_v2 = copy.deepcopy(location)
+        tile_v2.x -= 105
+        tile_v2.y += 30
+        print(tile_v2)
 
-            tile_v3 = location
-            tile_v3.x += 115
-            tile_v3.y += 30
-            print(tile_v3)
+        tile_v3 = copy.deepcopy(location)
+        tile_v3.x += 115
+        tile_v3.y += 30
+        print(tile_v3)
 
-            tile_v4 = location
-            tile_v4.y += 55
-            print(tile_v4)
+        tile_v4 = copy.deepcopy(location)
+        tile_v4.y += 55
+        print(tile_v4)
 
-            self.v1 = tile_v1
-            self.v2 = tile_v2
-            self.v3 = tile_v3
-            self.v4 = tile_v4
+        self.v1 = tile_v1
+        self.v2 = tile_v2
+        self.v3 = tile_v3
+        self.v4 = tile_v4
 
     def draw(self, color = BLACK):
         #print("Hello")
