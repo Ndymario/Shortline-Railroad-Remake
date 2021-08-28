@@ -161,6 +161,10 @@ def main():
         end_drawing()
         # -----------------------------------------------------------
 
+    # Free resources
+    for t in tracks:
+        unload_texture(t)
+
     # De-Initialization
     # ---------------------------------------------------------------
     close_window()       # Close window and OpenGL context
