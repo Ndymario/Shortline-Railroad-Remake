@@ -1,6 +1,8 @@
 import os
 import platform
 import copy
+from enum import Enum
+from raylibpy import *
 
 print(platform.system())
 print(platform.architecture()[0])
@@ -14,8 +16,6 @@ elif platform.system() == "Windows":
         os.environ["RAYLIB_BIN_PATH"] = "Deps/Windows64"
     elif platform.architecture()[0] == "32bit":
         os.environ["RAYLIB_BIN_PATH"] = "Deps/Windows32"
-
-from raylibpy import *
 
 def main():
 
@@ -94,6 +94,23 @@ def main():
     tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25]
 
     last_tile = None
+
+    # 0: sloped down
+    # 1: left
+    # 2: up
+    # 3: right
+    # 4: down
+    # 5: sloped_up
+    current_track = 0
+
+    tracks = [load_texture("assets/images/sloped_down.png"), load_texture("assets/images/bend_left.png"), load_texture("assets/images/bend_up.png"), load_texture("assets/images/bend_right.png"), load_texture("assets/images/bend_down.png"), load_texture("assets/images/sloped_up.png")]
+
+    # Controls
+    interact = MOUSE_LEFT_BUTTON
+    build = MOUSE_RIGHT_BUTTON
+    change_mode = KEY_S
+    pause = KEY_ENTER
+
     # ---------------------------------------------------------------
     # Main game loop
     while not window_should_close():
@@ -116,16 +133,21 @@ def main():
         draw_rectangle(0, 0, 1024, 79, BLUE) # Menu
         draw_rectangle(0, 560-25, 1024, 25, LIGHTGRAY) # Status
 
+        # Change the current track to build if the player presses the change track button
+        if(is_mouse_button_pressed(interact)):
+            current_track += 1
+            if (current_track == 6):
+                current_track = 0
+
         # Interactable Tiles
         for tile in tiles:
             tile.draw()
 
             # Draw on a hilighted tile
             if(tile.colission_check(mouse_pos)):
-                vec_x = (tile.v2.x + tile.v3.x)/2 - 3
-                vec_y = tile.v2.y - 3
-                draw_circle(vec_x, vec_y, 10, BLACK)
-                last_tile = Vector2(vec_x, vec_y)
+                vec = Vector2((tile.v2.x + tile.v3.x)/2 - 3, tile.v2.y - 3)
+                draw_texture(tracks[current_track], vec, WHITE)
+                last_tile = vec
 
             # If the player has not yet hovered over a Tile, don't draw anything
             elif (last_tile == None):
