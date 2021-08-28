@@ -2,7 +2,6 @@ import os
 import platform
 import copy
 from enum import Enum
-from raylibpy import *
 
 print(platform.system())
 print(platform.architecture()[0])
@@ -16,6 +15,7 @@ elif platform.system() == "Windows":
         os.environ["RAYLIB_BIN_PATH"] = "Deps/Windows64"
     elif platform.architecture()[0] == "32bit":
         os.environ["RAYLIB_BIN_PATH"] = "Deps/Windows32"
+from raylibpy import *
 
 def main():
 
@@ -146,7 +146,7 @@ def main():
             # Draw on a hilighted tile
             if(tile.colission_check(mouse_pos)):
                 vec = Vector2((tile.v2.x + tile.v3.x)/2 - 3, tile.v2.y - 3)
-                draw_texture(tracks[current_track], vec, WHITE)
+                draw_texture_v(tracks[current_track], vec, WHITE)
                 last_tile = vec
 
             # If the player has not yet hovered over a Tile, don't draw anything
