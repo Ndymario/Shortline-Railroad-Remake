@@ -3,11 +3,17 @@ import platform
 import copy
 
 print(platform.system())
+print(platform.architecture()[0])
 if platform.system() == "Linux":
     if platform.architecture()[0] == "64bit":
         os.environ["RAYLIB_BIN_PATH"] = "Deps/Linux64"
     elif platform.architecture()[0] == "32bit":
         os.environ["RAYLIB_BIN_PATH"] = "Deps/Linux32"
+elif platform.system() == "Windows":
+    if platform.architecture()[0] == "64bit":
+        os.environ["RAYLIB_BIN_PATH"] = "Deps/Windows64"
+    elif platform.architecture()[0] == "32bit":
+        os.environ["RAYLIB_BIN_PATH"] = "Deps/Windows32"
 
 from raylibpy import *
 
