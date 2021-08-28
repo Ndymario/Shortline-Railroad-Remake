@@ -93,6 +93,7 @@ def main():
 
     tiles = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25]
 
+    last_tile = None
     # ---------------------------------------------------------------
     # Main game loop
     while not window_should_close():
@@ -119,8 +120,21 @@ def main():
         for tile in tiles:
             tile.draw()
 
-            if((is_mouse_button_pressed(MOUSE_LEFT_BUTTON)) and (tile.colission_check(mouse_pos))):
-                print("Collision with Tile ID: {0}".format(tile.id))
+            # Draw on a hilighted tile
+            if(tile.colission_check(mouse_pos)):
+                vec_x = (tile.v2.x + tile.v3.x)/2 - 3
+                vec_y = tile.v2.y - 3
+                draw_circle(vec_x, vec_y, 10, BLACK)
+                last_tile = Vector2(vec_x, vec_y)
+
+            # If the player has not yet hovered over a Tile, don't draw anything
+            elif (last_tile == None):
+                continue
+
+            else:
+                draw_circle(last_tile.x, last_tile.y, 10, BLACK)
+
+
 
         end_drawing()
         # -----------------------------------------------------------
@@ -195,7 +209,7 @@ class Tile():
         self.v4 = tile_v4
 
     # Function to draw the Tiles to the screen
-    def draw(self, color = BLACK):
+    def draw(self, color = BLANK):
         draw_triangle(self.v1, self.v2, self.v3, color)
         draw_triangle(self.v2, self.v4, self.v3, color)
 
