@@ -201,18 +201,18 @@ class Tile():
 
     # Function that checks to see if the mouse is currently touching the Tile
     def colission_check(self, mouse_pos):
-        y_col = False
-        x_col = False
-        # First, see if the mouse is in the Tile's y-range
-        if((self.v1.y <= mouse_pos.y) and (self.v4.y >= mouse_pos.y)):
-            y_col = True
+        top_col = False
+        bottom_col = False
+        # First, see if the mouse is in the top half of the Tile
+        if (check_collision_point_triangle(mouse_pos, self.v1, self.v2, self.v3)):
+            top_col = True
 
-        # Next, check the x-range
-        if((self.v2.x <= mouse_pos.x) and (self.v3.x >= mouse_pos.x)):
-            x_col = True
+        # Next, check the bottom half
+        if (check_collision_point_triangle(mouse_pos, self.v2, self.v4, self.v3)):
+            bottom_col = True
 
-        # Lastly, return True if both contitions are met
-        if(x_col and y_col):
+        # Lastly, return True is either is True
+        if (top_col or bottom_col):
             return True
         else:
             return False
