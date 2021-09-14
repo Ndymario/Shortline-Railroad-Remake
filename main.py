@@ -17,6 +17,9 @@ elif platform.system() == "Windows":
         os.environ["RAYLIB_BIN_PATH"] = "Deps/Windows32"
 from raylibpy import *
 
+# Fix macOS relative pathing by appending the CWD to asset paths
+dirname = os.getcwd()
+
 def main():
 
     # Initialization
@@ -103,7 +106,7 @@ def main():
     # 5: sloped_up
     current_track = 0
 
-    tracks = [load_texture("assets/images/sloped_down.png"), load_texture("assets/images/bend_left.png"), load_texture("assets/images/bend_up.png"), load_texture("assets/images/bend_right.png"), load_texture("assets/images/bend_down.png"), load_texture("assets/images/sloped_up.png")]
+    tracks = [load_texture(dirname + "/assets/images/sloped_down.png"), load_texture(dirname + "/assets/images/bend_left.png"), load_texture(dirname + "/assets/images/bend_up.png"), load_texture(dirname + "/assets/images/bend_right.png"), load_texture(dirname + "/assets/images/bend_down.png"), load_texture(dirname + "/assets/images/sloped_up.png")]
 
     # Controls
     interact = MOUSE_LEFT_BUTTON
